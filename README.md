@@ -239,6 +239,8 @@ curl -X POST http://localhost:5000/api/auth/signup \
     "department": "Critical Care"
   }'
 ```
+<img width="1680" height="958" alt="Screenshot 2026-05-03 at 2 58 11 PM" src="https://github.com/user-attachments/assets/5c651401-50cc-4b62-9c3e-62e3ace3fc53" />
+
 
 ### Login
 ```bash
@@ -246,6 +248,7 @@ curl -X POST http://localhost:5000/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{ "email": "ramesh@hospital.com", "password": "SecurePass@123" }'
 ```
+<img width="1680" height="957" alt="Screenshot 2026-05-03 at 2 57 37 PM" src="https://github.com/user-attachments/assets/2c87d700-52f1-4721-a796-555a82215ae0" />
 
 ### Record Vitals (triggers AI prediction)
 ```bash
@@ -259,6 +262,8 @@ curl -X POST http://localhost:5000/api/patients/PATIENT_ID/vitals \
     "bpDiastolic": 92
   }'
 ```
+<img width="1680" height="962" alt="Screenshot 2026-05-03 at 2 59 36 PM" src="https://github.com/user-attachments/assets/9fe96eff-04d3-4eb3-a52a-3978de5ecdf0" />
+
 
 ### Approve a Transfer
 ```bash
@@ -267,6 +272,9 @@ curl -X POST http://localhost:5000/api/transfers/TRANSFER_ID/approve \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -d '{ "decision": "approved", "remarks": "Vitals stable, proceed." }'
 ```
+<img width="1680" height="954" alt="Screenshot 2026-05-03 at 2 59 50 PM" src="https://github.com/user-attachments/assets/a976da1d-2108-4833-8cf0-3492325e99f9" />
+<img width="1680" height="954" alt="Screenshot 2026-05-03 at 3 00 21 PM" src="https://github.com/user-attachments/assets/765632b4-9fec-4299-b67e-2b4c84703ffc" />
+
 
 ### AI Predict (direct)
 ```bash
