@@ -1,4 +1,4 @@
-# MedBed OS — Full Stack System
+# Care-Verse— Full Stack System
 ### Smart Patient Transfer System with AI Risk Prediction & Real-Time Monitoring
 
 ---
