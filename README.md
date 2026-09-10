@@ -1,350 +1,537 @@
-# MedBed OS — Full Stack System
-### Smart Patient Transfer System with AI Risk Prediction & Real-Time Monitoring
-
+# Care-Verse 🏥
+### AI-Powered Smart Healthcare & Patient Transfer Platform
+Care-Verse is a full-stack healthcare technology platform designed to improve **patient monitoring, risk assessment, hospital coordination, and patient transfers** through a combination of real-time systems, artificial intelligence, and modern web technologies.
+The platform brings together patient data, live vitals, AI-based risk prediction, transfer management, alerts, and role-based healthcare workflows into a unified system.
 ---
+## 🚀 Overview
+Healthcare teams often need to make rapid decisions while managing patient vitals, transfers, alerts, and coordination between departments or hospitals.
+**Care-Verse** addresses this challenge by providing a centralized platform that enables healthcare staff to:
+- Monitor patients and their vital signs in real time
+- Predict potential patient risks using AI/ML
+- Generate alerts for abnormal vitals
+- Create and manage patient transfer requests
+- Handle transfer approvals and progress
+- Coordinate inter-hospital transfers
+- Manage healthcare staff with role-based permissions
+- Maintain an auditable workflow for critical decisions
+- Connect frontend, backend, database, and AI services into one system
+---
+## 🧠 Core Idea
+```text
+                    ┌─────────────────────┐
+                    │      CARE-VERSE     │
+                    │ Smart Healthcare     │
+                    │     Platform        │
+                    └──────────┬──────────┘
+                               │
+          ┌────────────────────┼────────────────────┐
+          │                    │                    │
+          ▼                    ▼                    ▼
+   Patient Monitoring      AI Risk Engine      Transfer System
+          │                    │                    │
+          ▼                    ▼                    ▼
+      Live Vitals         Risk Prediction       Approvals
+      Alerts              Risk Score             Progress
+      Patient Data        Risk Flags             Hospitals
+          │                    │                    │
+          └────────────────────┼────────────────────┘
+                               ▼
+                      Healthcare Dashboard
 
-## 📁 Project Structure
+⸻
 
-```
-medbed-fullstack/
+✨ Key Features
+
+👨‍⚕️ Patient Management
+
+Healthcare staff can manage patient information and access patient-specific data through a centralized dashboard.
+
+Features include:
+
+* Patient registration
+* Patient records
+* Patient vitals
+* Medical conditions
+* Patient risk information
+* Historical vital readings
+
+⸻
+
+❤️ Real-Time Patient Monitoring
+
+Care-Verse supports real-time monitoring of patient vitals using Socket.IO.
+
+Supported parameters include:
+
+* Heart Rate
+* SpO₂
+* Blood Pressure
+* Other patient monitoring metrics
+
+Abnormal readings can trigger AI analysis and system alerts.
+
+⸻
+
+🤖 AI Risk Prediction
+
+The platform includes a dedicated Python-based AI microservice for patient risk prediction.
+
+The AI service uses:
+
+* Python
+* FastAPI
+* Scikit-learn
+* Random Forest Classification
+
+The model analyzes patient information and vital signs to estimate risk levels such as:
+
+LOW
+MEDIUM
+HIGH
+
+It also provides:
+
+* Risk score
+* Vital abnormality flags
+* Probability distribution
+* Transfer-related risk information
+
+AI Pipeline
+
+Patient Data
+     │
+     ▼
+Vital Signs + Medical Information
+     │
+     ▼
+Feature Engineering
+     │
+     ▼
+Machine Learning Model
+     │
+     ▼
+Risk Prediction
+     │
+     ├── Risk Level
+     ├── Risk Score
+     └── Alert Flags
+
+The system also includes a rule-based fallback mechanism if the AI service becomes unavailable.
+
+⸻
+
+🚑 Smart Patient Transfer
+
+Care-Verse provides a structured workflow for managing patient transfers.
+
+Transfer Request
+       │
+       ▼
+   AI Risk Check
+       │
+       ▼
+Approval Required
+       │
+   ┌───┴────┐
+   ▼        ▼
+Approved  Rejected
+   │
+   ▼
+Transfer In Progress
+   │
+   ▼
+Completed
+
+The transfer system supports:
+
+* Transfer creation
+* Transfer approval/rejection
+* Transfer progress tracking
+* Transfer status management
+* Hospital coordination
+* Audit trails
+
+⸻
+
+🔔 Intelligent Alerts
+
+The system generates alerts based on patient conditions and AI predictions.
+
+Alerts can be generated for:
+
+* Abnormal heart rate
+* Low SpO₂
+* Abnormal blood pressure
+* High patient risk
+* Transfer-related events
+* Critical system conditions
+
+Healthcare staff can acknowledge or dismiss alerts according to their permissions.
+
+⸻
+
+🔐 Authentication & Role-Based Access
+
+Care-Verse uses secure authentication and authorization mechanisms.
+
+Authentication
+
+* JWT-based authentication
+* Password hashing using bcrypt
+* Protected API routes
+* Token-based sessions
+* Role-based authorization
+
+User Roles
+
+Role	Capabilities
+Admin	Full system access
+Doctor	Patient management, approvals, monitoring
+Nurse	Monitoring, vitals, transfers, alerts
+
+Permissions are enforced at the backend level.
+
+⸻
+
+⚡ Real-Time Architecture
+
+The platform uses Socket.IO to provide real-time communication between the frontend and backend.
+
+Real-time events include:
+
+Patient Vitals
+     ↓
+Backend
+     ↓
+AI Analysis
+     ↓
+Risk / Alert Generation
+     ↓
+Socket.IO
+     ↓
+Connected Dashboards
+
+This allows multiple healthcare users to receive important patient and transfer updates without manually refreshing the dashboard.
+
+⸻
+
+🏗️ System Architecture
+
+                         CARE-VERSE
+                              │
+             ┌────────────────┼────────────────┐
+             │                │                │
+             ▼                ▼                ▼
+        Frontend           Backend          AI Service
+      HTML/CSS/JS       Node + Express      Python/FastAPI
+             │                │                │
+             │                ├───────► AI ───┤
+             │                │
+             │                ▼
+             │            MongoDB
+             │
+             ▼
+       Healthcare Users
+
+Technology Flow
+
+Frontend
+   │
+   │ REST API / Socket.IO
+   ▼
+Node.js + Express Backend
+   │
+   ├──────────────► MongoDB
+   │
+   └──────────────► Python AI Service
+                         │
+                         ▼
+                  ML Risk Prediction
+
+⸻
+
+🛠️ Technology Stack
+
+Layer	Technology
+Frontend	HTML, CSS, JavaScript
+Backend	Node.js, Express.js
+Database	MongoDB, Mongoose
+Real-Time	Socket.IO
+Authentication	JWT, bcryptjs
+AI/ML	Python, Scikit-learn
+AI API	FastAPI
+Validation	Express Validator
+Security	Helmet, CORS
+ML Model	Random Forest Classifier
+
+⸻
+
+📁 Repository Structure
+
+Care-Verse/
 │
-├── backend/                   # Node.js + Express API
-│   ├── config/
-│   │   └── db.js              # MongoDB connection
-│   ├── controllers/
-│   │   ├── authController.js  # signup, login, logout
-│   │   ├── patientController.js
-│   │   ├── transferController.js
-│   │   └── alertController.js
-│   ├── middleware/
-│   │   ├── auth.js            # JWT protect + authorize(roles)
-│   │   └── errorHandler.js    # Global error handler + AppError
-│   ├── models/
-│   │   ├── User.js            # Staff (Admin/Doctor/Nurse)
-│   │   ├── Patient.js
-│   │   ├── Vitals.js          # Time-series, TTL 30 days
-│   │   ├── Transfer.js
-│   │   └── index.js           # Approval, Alert, Hospital
-│   ├── routes/
-│   │   ├── authRoutes.js
-│   │   ├── patientRoutes.js
-│   │   ├── transferRoutes.js
-│   │   ├── alertRoutes.js
-│   │   └── hospitalRoutes.js
-│   ├── services/
-│   │   └── aiService.js       # Calls Python AI with fallback
-│   ├── sockets/
-│   │   └── socketManager.js   # Socket.IO with JWT auth
-│   ├── .env.example
-│   ├── package.json
-│   └── server.js              # Entry point
+├── bed/
+│   └── Bed monitoring / sensor components
 │
-├── ai-service/                # Python FastAPI microservice
-│   ├── train.py               # Generate data + train model
-│   ├── model.py               # Inference + route suggestion
-│   ├── api.py                 # FastAPI endpoints
-│   └── requirements.txt
+├── medbed-fullstack/
+│   │
+│   ├── backend/
+│   │   ├── config/
+│   │   ├── controllers/
+│   │   ├── middleware/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   ├── services/
+│   │   ├── sockets/
+│   │   └── server.js
+│   │
+│   ├── ai-service/
+│   │   ├── train.py
+│   │   ├── model.py
+│   │   ├── api.py
+│   │   └── requirements.txt
+│   │
+│   └── frontend/
+│       ├── login.html
+│       ├── signup.html
+│       ├── auth.js
+│       └── index.html
 │
-└── frontend/                  # Alongside your existing HTML
-    ├── login.html             # NEW: Login page
-    ├── signup.html            # NEW: Signup page
-    ├── auth.js                # NEW: Injects into existing dashboard
-    └── index.html             # Your existing MedBed OS dashboard
-```
+├── medbed-ml/
+│   └── Machine learning components
+│
+├── package.json
+├── package-lock.json
+├── README.md
+└── .gitignore
 
----
+⸻
 
-## ⚡ Quick Start
+🔄 End-to-End Workflow
 
-### Prerequisites
-- Node.js 18+
-- Python 3.9+
-- MongoDB (local or Atlas)
+A typical Care-Verse workflow looks like:
 
----
+1. Healthcare staff logs in
+             ↓
+2. Staff accesses patient dashboard
+             ↓
+3. Patient vitals are recorded
+             ↓
+4. Backend processes the readings
+             ↓
+5. AI service evaluates patient risk
+             ↓
+6. Risk score and alerts are generated
+             ↓
+7. Healthcare staff receives real-time updates
+             ↓
+8. Transfer request can be created
+             ↓
+9. Authorized staff approves/rejects transfer
+             ↓
+10. Transfer progress is tracked
+             ↓
+11. Transfer is completed
 
-### Step 1 — Backend Setup
+⸻
 
-```bash
-cd backend
+📊 Data & AI
 
-# Install dependencies
-npm install
+The AI component is designed around patient physiological and contextual information.
 
-# Copy and configure environment variables
-cp .env.example .env
-# Edit .env — set your MONGO_URI and JWT_SECRET
+Example Input
 
-# Start the backend
-npm run dev       # development (nodemon, auto-restart)
-# or
-npm start         # production
-```
+Heart Rate
+SpO₂
+Blood Pressure
+Age
+Medical Condition
+Post-Surgery Status
 
-Backend runs on: **http://localhost:5000**
+Example Output
 
----
-
-### Step 2 — AI Service Setup
-
-```bash
-cd ai-service
-
-# Create Python virtual environment
-python -m venv venv
-source venv/bin/activate          # Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Train the risk prediction model (creates risk_model.pkl)
-python train.py
-
-# Start the AI API server
-uvicorn api:app --host 0.0.0.0 --port 8000 --reload
-```
-
-AI service runs on: **http://localhost:8000**
-API docs (auto): **http://localhost:8000/docs**
-
----
-
-### Step 3 — Frontend Integration
-
-Add **one line** to your existing `index.html` before `</body>`:
-
-```html
-<!-- Add Socket.IO client (optional — enables real-time) -->
-<script src="http://localhost:5000/socket.io/socket.io.js"></script>
-
-<!-- Auth guard + API wrapper — ADD THIS LINE -->
-<script src="auth.js"></script>
-```
-
-Open `login.html` to start. After login you'll be redirected to `index.html`.
-
----
-
-## 🔐 Authentication Flow
-
-```
-User visits index.html
-    ↓
-auth.js checks localStorage for 'medbed_token'
-    ↓ no token
-Redirect to login.html
-    ↓
-User submits credentials → POST /api/auth/login
-    ↓ success
-JWT stored in localStorage
-Redirect back to index.html
-    ↓
-auth.js verifies token on load (GET /api/auth/me)
-auth.js injects user name + logout button into topbar
-```
-
----
-
-## 🗄️ Database Collections
-
-| Collection  | Description                                       |
-|-------------|---------------------------------------------------|
-| `users`     | Hospital staff with hashed passwords + roles      |
-| `patients`  | Patient records with AI risk scores               |
-| `vitals`    | Time-series readings (auto-expire after 30 days)  |
-| `transfers` | Transfer lifecycle (pending → approved → done)    |
-| `approvals` | Management approval decisions with audit trail    |
-| `alerts`    | System + AI-generated alerts                      |
-| `hospitals` | Hospital registry for inter-hospital transfers    |
-
----
-
-## 🌐 API Reference
-
-### Auth
-
-| Method | Endpoint                  | Access    | Description            |
-|--------|---------------------------|-----------|------------------------|
-| POST   | `/api/auth/signup`        | Public    | Create account         |
-| POST   | `/api/auth/login`         | Public    | Login, returns JWT     |
-| GET    | `/api/auth/me`            | Protected | Get current user       |
-| POST   | `/api/auth/logout`        | Protected | Logout                 |
-| PATCH  | `/api/auth/update-password` | Protected | Change password      |
-
-### Patients
-
-| Method | Endpoint                       | Access          |
-|--------|--------------------------------|-----------------|
-| GET    | `/api/patients`                | All             |
-| POST   | `/api/patients`                | Admin, Doctor   |
-| GET    | `/api/patients/:id`            | All             |
-| PATCH  | `/api/patients/:id`            | Admin, Doctor   |
-| DELETE | `/api/patients/:id`            | Admin           |
-| POST   | `/api/patients/:id/vitals`     | All             |
-| GET    | `/api/patients/:id/vitals`     | All             |
-
-### Transfers
-
-| Method | Endpoint                         | Access          |
-|--------|----------------------------------|-----------------|
-| GET    | `/api/transfers`                 | All             |
-| POST   | `/api/transfers`                 | All             |
-| GET    | `/api/transfers/:id`             | All             |
-| POST   | `/api/transfers/:id/approve`     | Admin, Doctor   |
-| PATCH  | `/api/transfers/:id/progress`    | All             |
-
-### Alerts
-
-| Method | Endpoint                          | Access  |
-|--------|-----------------------------------|---------|
-| GET    | `/api/alerts`                     | All     |
-| GET    | `/api/alerts/summary`             | All     |
-| PATCH  | `/api/alerts/:id/acknowledge`     | All     |
-| PATCH  | `/api/alerts/:id/dismiss`         | All     |
-
----
-
-## 📡 Socket.IO Events
-
-### Client → Server
-| Event               | Payload                                          |
-|---------------------|--------------------------------------------------|
-| `subscribe:patient` | `patientId` string                               |
-| `vitals:push`       | `{ patientId, heartRate, spo2, bpSystolic, … }` |
-| `transfer:progress` | `{ transferId, progressPercent, status }`        |
-
-### Server → Client
-| Event               | Description                                      |
-|---------------------|--------------------------------------------------|
-| `vitals:update`     | New vitals reading with AI flags                 |
-| `transfer:progress` | Transfer progress update                         |
-| `transfer:created`  | New transfer request                             |
-| `transfer:approval` | Approval decision broadcast                      |
-| `alert:new`         | New critical alert                               |
-| `alert:acknowledged`| Alert acknowledged by staff                      |
-
----
-
-## 🔑 Example API Requests
-
-### Signup
-```bash
-curl -X POST http://localhost:5000/api/auth/signup \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name":       "Dr. Ramesh Kumar",
-    "email":      "ramesh@hospital.com",
-    "password":   "SecurePass@123",
-    "role":       "doctor",
-    "department": "Critical Care"
-  }'
-```
-
-### Login
-```bash
-curl -X POST http://localhost:5000/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{ "email": "ramesh@hospital.com", "password": "SecurePass@123" }'
-```
-
-### Record Vitals (triggers AI prediction)
-```bash
-curl -X POST http://localhost:5000/api/patients/PATIENT_ID/vitals \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
-  -d '{
-    "heartRate":   108,
-    "spo2":        93,
-    "bpSystolic":  145,
-    "bpDiastolic": 92
-  }'
-```
-
-### Approve a Transfer
-```bash
-curl -X POST http://localhost:5000/api/transfers/TRANSFER_ID/approve \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
-  -d '{ "decision": "approved", "remarks": "Vitals stable, proceed." }'
-```
-
-### AI Predict (direct)
-```bash
-curl -X POST http://localhost:8000/predict \
-  -H "Content-Type: application/json" \
-  -d '{
-    "heart_rate": 108, "spo2": 93,
-    "bp_systolic": 145, "bp_diastolic": 92,
-    "age": 67, "condition": "cardiac", "is_post_surgery": true
-  }'
-```
-
----
-
-## 🔒 Role Permissions Summary
-
-| Feature                  | Admin | Doctor | Nurse |
-|--------------------------|:-----:|:------:|:-----:|
-| View patients            | ✅    | ✅     | ✅    |
-| Create / edit patient    | ✅    | ✅     | ❌    |
-| Delete patient           | ✅    | ❌     | ❌    |
-| Record vitals            | ✅    | ✅     | ✅    |
-| Create transfer          | ✅    | ✅     | ✅    |
-| Approve / reject transfer| ✅    | ✅     | ❌    |
-| Update progress          | ✅    | ✅     | ✅    |
-| Manage hospitals         | ✅    | ❌     | ❌    |
-| Acknowledge alerts       | ✅    | ✅     | ✅    |
-
----
-
-## 🤖 AI Service Details
-
-The Python microservice uses a **Random Forest Classifier** trained on 5,000 synthetic patient records.
-
-**Input features:**
-- Heart Rate, SpO2, BP Systolic, BP Diastolic
-- Age, Post-Surgery flag
-- Medical Condition (cardiac, ICU, hydrocephalus, etc.)
-- Derived: Pulse Pressure, Age Group
-
-**Output:**
-```json
 {
-  "risk":  "medium",
+  "risk": "medium",
   "score": 0.73,
-  "flags": { "hr_alert": true, "spo2_alert": false, "bp_alert": true },
-  "raw_proba": { "high": 0.12, "low": 0.15, "medium": 0.73 }
+  "flags": {
+    "hr_alert": true,
+    "spo2_alert": false,
+    "bp_alert": true
+  }
 }
-```
 
-> **If AI service is unavailable**, the Node backend automatically falls back to rule-based thresholds (HR > 100 → warn, SpO2 < 90 → critical).
+The model can be trained using synthetic patient records and provides a foundation for future integration with real-world clinical datasets.
 
----
+Note: AI predictions are intended as decision-support signals and should not replace professional clinical judgment.
 
-## 🛠️ Environment Variables
+⸻
 
-```env
+🔒 Security
+
+Security is an important part of the platform.
+
+Care-Verse implements:
+
+* JWT authentication
+* Password hashing
+* Protected routes
+* Role-based authorization
+* HTTP security headers
+* CORS configuration
+* Input validation
+* Environment-based configuration
+* Separation of AI and backend services
+
+Sensitive configuration such as database credentials and JWT secrets should be stored in environment variables and must not be committed to GitHub.
+
+⸻
+
+⚙️ Local Development
+
+Prerequisites
+
+Make sure you have:
+
+* Node.js 18+
+* Python 3.9+
+* MongoDB
+* npm
+* Git
+
+⸻
+
+1. Clone Repository
+
+git clone https://github.com/tanmayyyyayyy/Care-Verse.git
+cd Care-Verse
+
+⸻
+
+2. Start Backend
+
+cd medbed-fullstack/backend
+npm install
+cp .env.example .env
+
+Configure your .env file:
+
 PORT=5000
 NODE_ENV=development
 MONGO_URI=mongodb://localhost:27017/medbed_os
-JWT_SECRET=your_super_secret_key_here
+JWT_SECRET=your_secret_key
 JWT_EXPIRES_IN=7d
 AI_SERVICE_URL=http://localhost:8000
 CLIENT_ORIGIN=http://localhost:3000
-```
 
----
+Start the backend:
 
-## 📦 Tech Stack Summary
+npm run dev
 
-| Layer       | Technology                          |
-|-------------|-------------------------------------|
-| Frontend    | HTML + CSS + Vanilla JS (existing)  |
-| Auth Pages  | login.html + signup.html            |
-| Backend     | Node.js + Express                   |
-| Database    | MongoDB + Mongoose                  |
-| Real-time   | Socket.IO                           |
-| Auth        | JWT (jsonwebtoken) + bcryptjs       |
-| AI/ML       | Python + FastAPI + scikit-learn     |
-| Validation  | express-validator                   |
-| Security    | helmet, cors, bcrypt salt rounds=12 |
+Backend:
+
+http://localhost:5000
+
+⸻
+
+3. Start AI Service
+
+Open another terminal:
+
+cd medbed-fullstack/ai-service
+python -m venv venv
+source venv/bin/activate
+
+Windows:
+
+venv\Scripts\activate
+
+Install dependencies:
+
+pip install -r requirements.txt
+
+Train the model:
+
+python train.py
+
+Start the AI service:
+
+uvicorn api:app --host 0.0.0.0 --port 8000 --reload
+
+AI API:
+
+http://localhost:8000
+
+Swagger documentation:
+
+http://localhost:8000/docs
+
+⸻
+
+🌐 Application Components
+
+Component	Default Address
+Frontend	Local HTML application
+Backend API	localhost:5000
+AI Service	localhost:8000
+MongoDB	localhost:27017
+
+⸻
+
+🧪 API & Developer Documentation
+
+Detailed API documentation, authentication flows, Socket.IO events, database collections, environment variables, and example requests are available inside:
+
+medbed-fullstack/README.md
+
+⸻
+
+🚧 Future Roadmap
+
+Potential future improvements include:
+
+* Real hospital/EMR integrations
+* Advanced clinical datasets
+* Deep learning-based risk prediction
+* Predictive deterioration analysis
+* Automated bed allocation
+* Hospital capacity monitoring
+* GPS-based ambulance tracking
+* Multi-hospital coordination
+* Advanced analytics dashboards
+* Mobile application
+* Notification services
+* Explainable AI
+* Cloud deployment
+* Containerized deployment using Docker
+* Comprehensive automated testing
+
+⸻
+
+🎯 Vision
+
+Care-Verse aims to move healthcare workflows from reactive monitoring toward proactive, intelligent decision support.
+
+By combining:
+
+Real-Time Monitoring + AI + Automation + Healthcare Workflows
+
+the platform provides a foundation for smarter patient management and safer, more coordinated transfers.
+
+⸻
+
+👨‍💻 Project
+
+Care-Verse
+
+AI-powered healthcare and smart patient transfer platform.
+
+Developed by Tanmay Jain
+
+⸻
+
+⭐ Support
+
+If you find this project interesting, consider giving the repository a ⭐ on GitHub.
+
+Care-Verse
+AI • Healthcare • Machine Learning • Real-Time Systems
